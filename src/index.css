@@ -308,19 +308,6 @@ p {
   animation: float 14s ease-in-out infinite;
 }
 
-@keyframes floatCard {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-.hero-float {
-  animation: floatCard 6s ease-in-out infinite;
-}
-
 /* ---- click sparkle ---- */
 
 .click-sparkle {
@@ -375,9 +362,6 @@ p {
     transition: none;
   }
   .hero-blob {
-    animation: none;
-  }
-  .hero-float {
     animation: none;
   }
   .whatsapp-pulse {
