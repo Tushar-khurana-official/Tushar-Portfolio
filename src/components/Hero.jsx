@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   ArrowRightIcon,
   ChatBubbleLeftRightIcon,
@@ -11,6 +11,7 @@ export default function Hero() {
   const [typed, setTyped] = useState('')
   const [roleIndex, setRoleIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
+  const cardRef = useRef(null)
 
   useEffect(() => {
     const current = roles[roleIndex]
@@ -38,6 +39,25 @@ export default function Hero() {
     return () => clearTimeout(timeout)
   }, [typed, isDeleting, roleIndex])
 
+  const handleMouseMove = (e) => {
+    const card = cardRef.current
+    if (!card) return
+    const rect = card.getBoundingClientRect()
+    const px = (e.clientX - rect.left) / rect.width
+    const py = (e.clientY - rect.top) / rect.height
+    const rotateY = (px - 0.5) * 14
+    const rotateX = (0.5 - py) * 14
+    card.style.transition = 'transform 0.08s linear'
+    card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`
+  }
+
+  const handleMouseLeave = () => {
+    const card = cardRef.current
+    if (!card) return
+    card.style.transition = 'transform 0.5s ease'
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)'
+  }
+
   return (
     <section id="home" className="relative isolate overflow-hidden">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
@@ -55,6 +75,10 @@ export default function Hero() {
       <div className="container-page flex min-h-[calc(100svh-4rem)] flex-col justify-center py-24">
         <div className="grid items-center gap-12 lg:grid-cols-[55%_45%] lg:gap-10">
           <div>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text)]/70 sm:text-[12px] sm:whitespace-nowrap">
+              Full-Stack Developer · React Native · Node.js
+            </p>
+
             <p className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--code-bg)] px-3 py-1 text-xs font-medium text-[var(--text)]">
               <span className="relative flex size-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--accent)] opacity-60" />
@@ -63,22 +87,22 @@ export default function Hero() {
               Available for internships
             </p>
 
-            <h1 className="mt-6 text-4xl font-bold text-[var(--text-h)] sm:text-5xl xl:text-6xl">
+            <h1 className="mt-4 text-4xl font-bold text-[var(--text-h)] sm:text-5xl xl:text-6xl">
               Hi, I'm <span className="text-[var(--accent)]">Tushar</span>
             </h1>
 
-            <p className="mt-3 flex items-center text-xl font-semibold text-[var(--text-h)] sm:text-2xl">
+            <p className="mt-2 flex items-center text-xl font-semibold text-[var(--text-h)] sm:text-2xl">
               <span>{typed}</span>
               <span className="ml-1 inline-block h-6 w-0.5 animate-pulse bg-[var(--accent)] sm:h-7" />
             </p>
 
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--text)] sm:text-lg">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-[var(--text)] sm:text-lg">
               I build production-grade apps end to end with React Native, Node.js,
               Express, Prisma and Redis — currently interning and shipping real
               features from the mobile screen to the Postgres table.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <a href="#projects" className="btn btn-accent">
                 View Projects
                 <ArrowRightIcon className="size-4" />
@@ -96,60 +120,30 @@ export default function Hero() {
               className="hero-blob absolute -inset-8 rounded-full bg-[var(--accent)] opacity-20 blur-3xl"
             />
 
-            <div className="hero-float relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--code-bg)] shadow-[var(--shadow)]">
-              <div className="flex items-center gap-2 border-b border-[var(--border)] px-4 py-3">
-                <span className="size-3 rounded-full bg-red-400" />
-                <span className="size-3 rounded-full bg-yellow-400" />
-                <span className="size-3 rounded-full bg-green-400" />
-                <span className="ml-3 font-mono text-xs text-[var(--text)]">
-                  developer.js
-                </span>
+            <div
+              ref={cardRef}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              className="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--accent-bg)] via-[var(--code-bg)] to-[var(--code-bg)] shadow-[var(--shadow)] will-change-transform"
+            >
+              <img
+                src="/profile.png"
+                alt="Tushar"
+                className="h-[26rem] w-full object-cover object-[50%_20%] sm:h-[30rem] lg:h-[32rem]"
+              />
+
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[color-mix(in_srgb,var(--accent)_30%,transparent)] to-transparent"
+              />
+
+              <div className="absolute left-4 top-4 rounded-xl bg-[#14141a]/85 px-3.5 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm">
+                Hi, I'm Tushar 👋
+                <span
+                  aria-hidden="true"
+                  className="absolute -bottom-1 left-7 size-2.5 rotate-45 bg-[#14141a]/85"
+                />
               </div>
-
-              <pre className="overflow-x-auto px-5 py-4 font-mono text-sm leading-7 text-[var(--text)]">
-                <span className="block">
-                  <span className="font-semibold text-[var(--accent)]">const</span>
-                  {' '}
-                  <span className="text-[var(--text-h)]">developer</span>
-                  {' = {'}
-                </span>
-                <span className="block pl-6">
-                  <span className="text-[var(--accent)]">name</span>
-                  {': '}
-                  <span className="text-[var(--text-h)]">"Tushar"</span>
-                  {','}
-                </span>
-                <span className="block pl-6">
-                  <span className="text-[var(--accent)]">stack</span>
-                  {': ['}
-                  <span className="text-[var(--text-h)]">"React Native"</span>
-                  {', '}
-                  <span className="text-[var(--text-h)]">"Node.js"</span>
-                  {', '}
-                  <span className="text-[var(--text-h)]">"Express"</span>
-                  {', '}
-                  <span className="text-[var(--text-h)]">"PostgreSQL"</span>
-                  {']'}
-                </span>
-                <span className="block pl-6">
-                  <span className="text-[var(--accent)]">currentlyBuilding</span>
-                  {': '}
-                  <span className="text-[var(--text-h)]">"DesiDukaan"</span>
-                  {','}
-                </span>
-                <span className="block pl-6">
-                  <span className="text-[var(--accent)]">status</span>
-                  {': '}
-                  <span className="text-[var(--text-h)]">"shipping features"</span>
-                  {','}
-                </span>
-                <span className="block">{'}'}</span>
-              </pre>
-            </div>
-
-            <div className="absolute -bottom-5 -right-2 rounded-full border border-[var(--accent-border)] bg-[var(--bg)] px-3 py-1.5 text-xs font-medium text-[var(--text-h)] shadow-[var(--shadow)]">
-              <span className="mr-1.5">🟢</span>
-              Currently interning
             </div>
           </div>
         </div>

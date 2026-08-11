@@ -10,6 +10,16 @@
     />
     <meta name="theme-color" content="#aa3bff" />
     <title>Tushar — Full-Stack Developer</title>
+    <script>
+      ;(function () {
+        try {
+          var t = localStorage.getItem('theme')
+          if (t === 'light' || t === 'dark') {
+            document.documentElement.dataset.theme = t
+          }
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

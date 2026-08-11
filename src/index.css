@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  --text: #5b5665;
+  --text-h: #16141c;
+  --bg: #faf9f7;
+  --border: #e7e4df;
+  --code-bg: #f2f0ea;
+  --accent: #9a3bf0;
+  --accent-bg: rgba(154, 59, 240, 0.1);
+  --accent-border: rgba(154, 59, 240, 0.45);
+  --social-bg: rgba(247, 245, 240, 0.7);
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    rgba(20, 15, 40, 0.08) 0 10px 20px -6px, rgba(20, 15, 40, 0.05) 0 4px 8px -4px;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -21,7 +21,7 @@
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
-  color-scheme: light dark;
+  color-scheme: light;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
@@ -47,7 +47,42 @@
     --social-bg: rgba(47, 48, 58, 0.5);
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+    --btn-fg: #15101c;
+    color-scheme: dark;
   }
+}
+
+/* Manual theme override — wins over the system preference above.
+   Set by the toggle in the navbar (documentElement[data-theme]). */
+:root[data-theme='light'] {
+  --text: #5b5665;
+  --text-h: #16141c;
+  --bg: #faf9f7;
+  --border: #e7e4df;
+  --code-bg: #f2f0ea;
+  --accent: #9a3bf0;
+  --accent-bg: rgba(154, 59, 240, 0.1);
+  --accent-border: rgba(154, 59, 240, 0.45);
+  --social-bg: rgba(247, 245, 240, 0.7);
+  --shadow:
+    rgba(20, 15, 40, 0.08) 0 10px 20px -6px, rgba(20, 15, 40, 0.05) 0 4px 8px -4px;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --text: #9ca3af;
+  --text-h: #f3f4f6;
+  --bg: #16171d;
+  --border: #2e303a;
+  --code-bg: #1f2028;
+  --accent: #c084fc;
+  --accent-bg: rgba(192, 132, 252, 0.15);
+  --accent-border: rgba(192, 132, 252, 0.5);
+  --social-bg: rgba(47, 48, 58, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  --btn-fg: #15101c;
+  color-scheme: dark;
 }
 
 html {
@@ -101,7 +136,7 @@ p {
 
 ::selection {
   background: var(--accent);
-  color: #fff;
+  color: var(--btn-fg, #fff);
 }
 
 /* ---- reusable components ---- */
@@ -132,7 +167,7 @@ p {
 
 .btn-accent {
   background: var(--accent);
-  color: #fff;
+  color: var(--btn-fg, #fff);
 }
 .btn-accent:hover {
   box-shadow: var(--shadow);
@@ -286,6 +321,50 @@ p {
   animation: floatCard 6s ease-in-out infinite;
 }
 
+/* ---- click sparkle ---- */
+
+.click-sparkle {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 80;
+}
+.click-sparkle-particle {
+  position: absolute;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+  animation: sparkle-burst 0.7s ease-out forwards;
+}
+
+@keyframes sparkle-burst {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.15);
+    opacity: 0;
+  }
+}
+
+/* ---- floating whatsapp pulse ---- */
+
+@keyframes whatsappPulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 18px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+.whatsapp-pulse {
+  animation: whatsappPulse 3s ease-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -300,5 +379,11 @@ p {
   }
   .hero-float {
     animation: none;
+  }
+  .whatsapp-pulse {
+    animation: none;
+  }
+  .click-sparkle-particle {
+    display: none;
   }
 }

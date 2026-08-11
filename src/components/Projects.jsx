@@ -179,7 +179,7 @@ export default function Projects() {
                   <ul className="mt-4 space-y-3">
                     {featured.highlights.map((h) => (
                       <li key={h} className="flex items-start gap-3 text-sm text-[var(--text-h)]">
-                        <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-white">
+                        <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--btn-fg, #fff)]">
                           <CheckIcon className="size-3" />
                         </span>
                         {h}
