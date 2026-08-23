@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline'
-import { FiMoon, FiSun } from 'react-icons/fi'
 import { GitHubIcon, LinkedInIcon } from './icons'
 
 const navigation = [
@@ -11,34 +10,8 @@ const navigation = [
   { name: 'Contact', href: '#contact' },
 ]
 
-function useTheme() {
-  const [theme, setTheme] = useState(() => {
-    try {
-      const stored = localStorage.getItem('theme')
-      if (stored === 'light' || stored === 'dark') return stored
-    } catch {
-      /* storage unavailable */
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-  })
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme
-    try {
-      localStorage.setItem('theme', theme)
-    } catch {
-      /* storage unavailable */
-    }
-  }, [theme])
-
-  const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
-
-  return { theme, toggleTheme }
-}
-
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { theme, toggleTheme } = useTheme()
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-5">
@@ -71,15 +44,6 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-            className="flex size-9 items-center justify-center rounded-full border border-[var(--border)] text-[var(--text-h)] transition-colors hover:border-[var(--accent-border)] hover:text-[var(--accent)]"
-          >
-            {theme === 'dark' ? <FiSun className="size-4" /> : <FiMoon className="size-4" />}
-          </button>
-
           <a
             href="/resume.pdf"
             download="Tushar_Resume.pdf"

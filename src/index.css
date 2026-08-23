@@ -34,57 +34,6 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-    --btn-fg: #15101c;
-    color-scheme: dark;
-  }
-}
-
-/* Manual theme override — wins over the system preference above.
-   Set by the toggle in the navbar (documentElement[data-theme]). */
-:root[data-theme='light'] {
-  --text: #5b5665;
-  --text-h: #16141c;
-  --bg: #faf9f7;
-  --border: #e7e4df;
-  --code-bg: #f2f0ea;
-  --accent: #9a3bf0;
-  --accent-bg: rgba(154, 59, 240, 0.1);
-  --accent-border: rgba(154, 59, 240, 0.45);
-  --social-bg: rgba(247, 245, 240, 0.7);
-  --shadow:
-    rgba(20, 15, 40, 0.08) 0 10px 20px -6px, rgba(20, 15, 40, 0.05) 0 4px 8px -4px;
-  color-scheme: light;
-}
-
-:root[data-theme='dark'] {
-  --text: #9ca3af;
-  --text-h: #f3f4f6;
-  --bg: #16171d;
-  --border: #2e303a;
-  --code-bg: #1f2028;
-  --accent: #c084fc;
-  --accent-bg: rgba(192, 132, 252, 0.15);
-  --accent-border: rgba(192, 132, 252, 0.5);
-  --social-bg: rgba(47, 48, 58, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  --btn-fg: #15101c;
-  color-scheme: dark;
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -306,6 +255,26 @@ p {
 }
 .hero-blob {
   animation: float 14s ease-in-out infinite;
+}
+
+/* Side fade mask for hero image - fades left/right edges into background */
+.mask-sides {
+  -webkit-mask-image:
+    -webkit-linear-gradient(
+      left,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1) 20%,
+      rgba(255, 255, 255, 1) 80%,
+      rgba(255, 255, 255, 0)
+    );
+  mask-image:
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1) 20%,
+      rgba(255, 255, 255, 1) 80%,
+      rgba(255, 255, 255, 0)
+    );
 }
 
 /* ---- click sparkle ---- */

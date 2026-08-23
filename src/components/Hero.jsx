@@ -12,6 +12,7 @@ export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
   const cardRef = useRef(null)
+  const rafRef = useRef(null)
 
   useEffect(() => {
     const current = roles[roleIndex]
@@ -36,19 +37,26 @@ export default function Hero() {
       )
     }
 
-    return () => clearTimeout(timeout)
+    return () => {
+      clearTimeout(timeout)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
   }, [typed, isDeleting, roleIndex])
 
   const handleMouseMove = (e) => {
     const card = cardRef.current
     if (!card) return
-    const rect = card.getBoundingClientRect()
-    const px = (e.clientX - rect.left) / rect.width
-    const py = (e.clientY - rect.top) / rect.height
-    const rotateY = (px - 0.5) * 14
-    const rotateX = (0.5 - py) * 14
-    card.style.transition = 'transform 0.08s linear'
-    card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`
+
+    if (rafRef.current) cancelAnimationFrame(rafRef.current)
+
+    rafRef.current = requestAnimationFrame(() => {
+      const rect = card.getBoundingClientRect()
+      const px = (e.clientX - rect.left) / rect.width
+      const py = (e.clientY - rect.top) / rect.height
+      const rotateY = (px - 0.5) * 14
+      const rotateX = (0.5 - py) * 14
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`
+    })
   }
 
   const handleMouseLeave = () => {
@@ -56,6 +64,10 @@ export default function Hero() {
     if (!card) return
     card.style.transition = 'transform 0.5s ease'
     card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)'
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+    }
   }
 
   return (
@@ -129,7 +141,7 @@ export default function Hero() {
               <img
                 src="/profile.png"
                 alt="Tushar"
-                className="h-[26rem] w-full object-cover object-[50%_20%] sm:h-[30rem] lg:h-[32rem]"
+                className="h-[26rem] w-full object-cover object-[50%_20%] sm:h-[30rem] lg:h-[32rem] mask-sides"
               />
 
               <div
