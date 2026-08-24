@@ -46,7 +46,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <a
             href="/resume.pdf"
-            download="Tushar_Resume.pdf"
+            download="Tushar-Khurana-Resume.pdf"
             className="btn btn-accent hidden !rounded-full !px-4 !py-2 !text-[13px] sm:inline-flex"
           >
             <ArrowDownTrayIcon className="size-3.5" />
@@ -99,7 +99,7 @@ export default function Navbar() {
             ))}
             <a
               href="/resume.pdf"
-              download="Tushar_Resume.pdf"
+              download="Tushar-Khurana-Resume.pdf"
               onClick={() => setMobileMenuOpen(false)}
               className="btn btn-accent !rounded-full mt-2"
             >

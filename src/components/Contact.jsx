@@ -3,9 +3,9 @@ import Reveal from './Reveal'
 import { GitHubIcon, LinkedInIcon } from './icons'
 import { EnvelopeIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
 
-const EMAIL = 'tusharkhuranaofficial@gmail.com'
+const EMAIL = 'tusharkh156@gmail.com'
 const GITHUB = 'https://github.com/Tushar-khurana-official'
-const LINKEDIN = 'https://www.linkedin.com/in/tushar-khurana-official'
+const LINKEDIN = 'https://www.linkedin.com/in/tushar-khurana-/'
 
 const links = [
   { label: 'Email', value: EMAIL, href: `mailto:${EMAIL}`, icon: EnvelopeIcon },
