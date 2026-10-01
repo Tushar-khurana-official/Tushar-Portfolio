@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const COLORS = ['var(--accent)', '#f43f5e', '#3b82f6', '#f59e0b', '#10b981']
+const COLORS = ['var(--accent)', '#a78bfa', '#e9d8fd']
 const PARTICLE_COUNT = 16
 
 export default function ClickSparkle() {

@@ -19,7 +19,7 @@ export default function FloatingWhatsApp() {
         alt=""
         className="size-full rounded-full border-2 border-[var(--accent-border)] object-cover"
       />
-      <span className="absolute -bottom-0.5 -right-0.5 flex size-6 items-center justify-center rounded-full bg-[#25D366] text-white shadow">
+      <span className="absolute -bottom-0.5 -right-0.5 flex size-6 items-center justify-center rounded-full bg-[var(--accent)] text-white shadow">
         <FaWhatsapp className="size-3.5" />
       </span>
     </a>
